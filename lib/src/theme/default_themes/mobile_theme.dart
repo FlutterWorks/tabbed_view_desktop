@@ -91,19 +91,18 @@ class MobileTheme {
         hoverButtonColor: hoverButtonColor,
         disabledButtonColor: disabledButtonColor,
         textStyle: TextStyle(fontSize: fontSize, color: foregroundColor),
-        buttonsOffset: 8,
+        buttonsOffset: 4,
         padding: EdgeInsets.fromLTRB(6, 3, 3, 3),
+        paddingWithoutButton: EdgeInsets.fromLTRB(6, 3, 6, 3),
         hoverButtonBackground: BoxDecoration(color: highlightedColor),
         buttonPadding: const EdgeInsets.all(2),
         decoration: BoxDecoration(border: border),
         innerBottomBorder:
             BorderSide(color: Colors.transparent, width: borderHeight),
         highlightedStatus: TabStatusThemeData(
-            decoration: BoxDecoration(border: border),
             innerBottomBorder:
                 BorderSide(color: borderColor, width: borderHeight)),
         selectedStatus: TabStatusThemeData(
-            decoration: BoxDecoration(border: border),
             innerBottomBorder:
                 BorderSide(color: accentColor, width: borderHeight)));
   }
