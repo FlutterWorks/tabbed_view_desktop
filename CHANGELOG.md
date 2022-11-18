@@ -1,3 +1,20 @@
+## 1.14.0+1
+
+* Stopping using `hashValues` deprecated method.
+
+## 1.14.0
+
+* Renaming `MenuThemeData` to `TabbedViewMenuThemeData`
+  * Avoiding conflict with next Flutter version.
+
+## 1.13.0+1
+
+* Formatting code.
+
+## 1.13.0
+
+* Adding interceptor for tab selection.
+
 ## 1.12.0
 
 * Adding `getTabByIndex` method in `TabbedViewController`.
