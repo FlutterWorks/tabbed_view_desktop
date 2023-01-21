@@ -7,7 +7,8 @@ import 'package:tabbed_view/src/theme/tabbed_view_theme_constants.dart';
 ///Theme for tabs and buttons area.
 class TabsAreaThemeData {
   TabsAreaThemeData(
-      {this.color,
+      {this.visible = true,
+      this.color,
       this.border,
       this.initialGap = 0,
       this.middleGap = 0,
@@ -36,14 +37,16 @@ class TabsAreaThemeData {
             ? IconProvider.path(TabbedViewIcons.menu)
             : menuIcon;
 
+  bool visible;
+
   Color? color;
   Border? border;
   double initialGap;
   double middleGap;
-  double _minimalFinalGap;
   BorderSide gapBottomBorder;
-
   EqualHeights equalHeights;
+
+  double _minimalFinalGap;
 
   double get minimalFinalGap => _minimalFinalGap;
 
@@ -88,4 +91,55 @@ class TabsAreaThemeData {
   }
 
   EdgeInsetsGeometry? buttonPadding;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TabsAreaThemeData &&
+          runtimeType == other.runtimeType &&
+          visible == other.visible &&
+          color == other.color &&
+          border == other.border &&
+          initialGap == other.initialGap &&
+          middleGap == other.middleGap &&
+          gapBottomBorder == other.gapBottomBorder &&
+          equalHeights == other.equalHeights &&
+          _minimalFinalGap == other._minimalFinalGap &&
+          buttonsAreaDecoration == other.buttonsAreaDecoration &&
+          buttonsAreaPadding == other.buttonsAreaPadding &&
+          buttonIconSize == other.buttonIconSize &&
+          normalButtonColor == other.normalButtonColor &&
+          hoverButtonColor == other.hoverButtonColor &&
+          disabledButtonColor == other.disabledButtonColor &&
+          normalButtonBackground == other.normalButtonBackground &&
+          hoverButtonBackground == other.hoverButtonBackground &&
+          disabledButtonBackground == other.disabledButtonBackground &&
+          menuIcon == other.menuIcon &&
+          _buttonsGap == other._buttonsGap &&
+          _buttonsOffset == other._buttonsOffset &&
+          buttonPadding == other.buttonPadding;
+
+  @override
+  int get hashCode =>
+      visible.hashCode ^
+      color.hashCode ^
+      border.hashCode ^
+      initialGap.hashCode ^
+      middleGap.hashCode ^
+      gapBottomBorder.hashCode ^
+      equalHeights.hashCode ^
+      _minimalFinalGap.hashCode ^
+      buttonsAreaDecoration.hashCode ^
+      buttonsAreaPadding.hashCode ^
+      buttonIconSize.hashCode ^
+      normalButtonColor.hashCode ^
+      hoverButtonColor.hashCode ^
+      disabledButtonColor.hashCode ^
+      normalButtonBackground.hashCode ^
+      hoverButtonBackground.hashCode ^
+      disabledButtonBackground.hashCode ^
+      menuIcon.hashCode ^
+      _buttonsGap.hashCode ^
+      _buttonsOffset.hashCode ^
+      buttonPadding.hashCode;
 }

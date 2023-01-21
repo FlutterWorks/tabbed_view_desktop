@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:tabbed_view/src/content_area.dart';
 import 'package:tabbed_view/src/tab_button.dart';
@@ -7,6 +8,8 @@ import 'package:tabbed_view/src/tabbed_view_controller.dart';
 import 'package:tabbed_view/src/tabbed_view_data.dart';
 import 'package:tabbed_view/src/tabbed_view_menu_item.dart';
 import 'package:tabbed_view/src/tabs_area.dart';
+import 'package:tabbed_view/src/theme/tabbed_view_theme_data.dart';
+import 'package:tabbed_view/src/theme/theme_widget.dart';
 
 /// Defines a draggable builder for each tab.
 typedef DraggableTabBuilder = Draggable Function(
@@ -48,7 +51,8 @@ class TabbedView extends StatefulWidget {
       this.contentClip = true,
       this.closeButtonTooltip,
       this.tabsAreaButtonsBuilder,
-      this.draggableTabBuilder});
+      this.draggableTabBuilder,
+      this.tabsAreaVisible});
 
   final TabbedViewController controller;
   final bool contentClip;
@@ -61,6 +65,7 @@ class TabbedView extends StatefulWidget {
   final String? closeButtonTooltip;
   final TabsAreaButtonsBuilder? tabsAreaButtonsBuilder;
   final DraggableTabBuilder? draggableTabBuilder;
+  final bool? tabsAreaVisible;
 
   @override
   State<StatefulWidget> createState() => _TabbedViewState();
@@ -90,6 +95,8 @@ class _TabbedViewState extends State<TabbedView> {
 
   @override
   Widget build(BuildContext context) {
+    TabbedViewThemeData theme = TabbedViewTheme.of(context);
+
     TabbedViewData data = TabbedViewData(
         controller: widget.controller,
         contentBuilder: widget.contentBuilder,
@@ -105,12 +112,18 @@ class _TabbedViewState extends State<TabbedView> {
         menuItemsUpdater: _setMenuItems,
         menuItems: _menuItems);
 
-    Widget tabArea = TabsArea(data: data);
-    ContentArea contentArea = ContentArea(data: data);
-    return CustomMultiChildLayout(children: [
-      LayoutId(id: 1, child: tabArea),
-      LayoutId(id: 2, child: contentArea)
-    ], delegate: _TabbedViewLayout());
+    final bool tabsAreaVisible =
+        widget.tabsAreaVisible ?? theme.tabsArea.visible;
+    List<LayoutId> children = [];
+    if (tabsAreaVisible) {
+      Widget tabArea = TabsArea(data: data);
+      children.add(LayoutId(id: 1, child: tabArea));
+    }
+    ContentArea contentArea =
+        ContentArea(data: data, tabsAreaVisible: tabsAreaVisible);
+    children.add(LayoutId(id: 2, child: contentArea));
+    return CustomMultiChildLayout(
+        children: children, delegate: _TabbedViewLayout());
   }
 
   /// Set a new menu items.
@@ -148,14 +161,17 @@ class _TabbedViewState extends State<TabbedView> {
 class _TabbedViewLayout extends MultiChildLayoutDelegate {
   @override
   void performLayout(Size size) {
-    Size childSize = layoutChild(
-        1,
-        BoxConstraints(
-            minWidth: size.width,
-            maxWidth: size.width,
-            minHeight: 0,
-            maxHeight: size.height));
-    positionChild(1, Offset.zero);
+    Size childSize = Size.zero;
+    if (hasChild(1)) {
+      childSize = layoutChild(
+          1,
+          BoxConstraints(
+              minWidth: size.width,
+              maxWidth: size.width,
+              minHeight: 0,
+              maxHeight: size.height));
+      positionChild(1, Offset.zero);
+    }
     double height = math.max(0, size.height - childSize.height);
     layoutChild(2, BoxConstraints.tightFor(width: size.width, height: height));
     positionChild(2, Offset(0, childSize.height));

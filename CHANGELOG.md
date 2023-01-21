@@ -1,6 +1,19 @@
+## 1.16.0
+
+* Tab leading widget
+
+## 1.15.0
+
+* Adding properties
+  * `TabbedView.tabsAreaVisible`
+  * `TabsAreaThemeData.visible`
+  * `ContentAreaThemeData.decorationNoTabsArea`
+* Bugfix
+  * Implementing `hashCode` and `==` of the theme data. 
+
 ## 1.14.0+1
 
-* Stopping using `hashValues` deprecated method.
+* Stopping using deprecated `hashValues` method.
 
 ## 1.14.0
 
