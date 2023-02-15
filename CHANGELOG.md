@@ -1,3 +1,7 @@
+## 1.16.0+1
+
+* Removing the use of deprecated constructor.
+
 ## 1.16.0
 
 * Tab leading widget
