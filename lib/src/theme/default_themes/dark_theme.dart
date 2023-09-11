@@ -73,7 +73,8 @@ class DarkTheme {
         hoverButtonBackground: BoxDecoration(color: highlightedColor),
         normalButtonColor: normalButtonColor,
         hoverButtonColor: hoverButtonColor,
-        disabledButtonColor: disabledButtonColor);
+        disabledButtonColor: disabledButtonColor,
+        dropColor: Color.fromARGB(150, 255, 255, 255));
   }
 
   static TabThemeData tabTheme(
@@ -90,6 +91,7 @@ class DarkTheme {
         buttonsOffset: 4,
         textStyle: TextStyle(fontSize: fontSize, color: fontColor),
         decoration: BoxDecoration(color: tabColor),
+        draggingDecoration: BoxDecoration(color: tabColor),
         margin: EdgeInsets.only(bottom: bottomWidth),
         padding: EdgeInsets.fromLTRB(6, 3, 3, 3),
         paddingWithoutButton: EdgeInsets.fromLTRB(6, 3, 6, 3),

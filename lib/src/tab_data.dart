@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:tabbed_view/src/tab_button.dart';
 import 'package:tabbed_view/src/tab_leading_builder.dart';
+import 'package:tabbed_view/src/tabbed_view_controller.dart';
 
 /// The tab data.
 ///
@@ -27,7 +28,7 @@ import 'package:tabbed_view/src/tab_leading_builder.dart';
 /// See also:
 ///
 /// * [TabbedView.contentBuilder]
-class TabData extends ChangeNotifier {
+class TabData extends ChangeNotifier with TabIndex {
   TabData(
       {dynamic value,
       required String text,
@@ -35,17 +36,21 @@ class TabData extends ChangeNotifier {
       Widget? content,
       TabLeadingBuilder? leading,
       bool closable = true,
+      this.draggable = true,
       this.keepAlive = false})
       : _value = value,
         _text = text,
         _leading = leading,
         _closable = closable,
         _content = content,
-        _buttons = buttons;
+        _buttons = buttons,
+        key = keepAlive ? GlobalKey() : UniqueKey();
 
   /// Identifies the content of the tab in the tree
-  final UniqueKey uniqueKey = UniqueKey();
+  final Key key;
   final bool keepAlive;
+
+  final bool draggable;
 
   dynamic _value;
 
@@ -102,4 +107,6 @@ class TabData extends ChangeNotifier {
     _text = value;
     notifyListeners();
   }
+
+  final UniqueKey uniqueKey = UniqueKey();
 }
