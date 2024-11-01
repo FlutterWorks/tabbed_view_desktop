@@ -1,3 +1,17 @@
+## 1.19.1
+
+* Bugfix
+  * Error setting text size
+
+## 1.19.0
+
+* Allows you to define a maximum width for the tab text.
+
+## 1.18.1
+
+* Bugfix
+  * Fields in hidden tabs continue to receive focus when pressing TAB.
+
 ## 1.18.0
 
 * Highlighting the tab's drop position.
